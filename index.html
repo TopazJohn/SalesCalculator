@@ -149,16 +149,16 @@
       const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
       const labourSavings = usesDip === 'yes' ? (tests * (5 / 60)) * 24.36 : 0;
 
-      const netSavings = productSavings + labSavings + cliaRevenue + labourSavings;
-      const totalROI = netSavings;
+      const netSavings = (productSavings + labSavings + labourSavings) * 12;
+      const totalROI = (netSavings + cliaRevenue) * 12;
 
       document.getElementById('results').innerHTML = `
         <p><strong>Monthly Product Cost Savings:</strong> $${productSavings.toFixed(2)}</p>
         <p><strong>Lab Confirmation Cost Savings:</strong> $${labSavings.toFixed(2)}</p>
         <p><strong>Labour Cost Savings:</strong> $${labourSavings.toFixed(2)}</p>
         <p><strong class="green">CLIA Reimbursement Revenue:</strong> $${cliaRevenue.toFixed(2)}</p>
-        <p><strong class="orange">NET Savings:</strong> $${netSavings.toFixed(2)}</p>
-        <p><strong class="red">TOTAL ROI:</strong> $${totalROI.toFixed(2)}</p>
+        <p><strong class="orange">NET Savings/year:</strong> $${netSavings.toFixed(2)}</p>
+        <p><strong class="red">TOTAL ROI/year:</strong> $${totalROI.toFixed(2)}</p>
       `;
     }
   </script>
