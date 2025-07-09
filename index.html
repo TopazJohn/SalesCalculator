@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Topaz Client Savings Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff;
+      color: #000;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      color: orange;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, select {
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 20px;
+      background-color: orange;
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      padding: 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #cc6b00;
+    }
+    .results {
+      margin-top: 30px;
+      border-top: 2px solid #000;
+      padding-top: 20px;
+    }
+    .green {
+      color: green;
+    }
+    .orange {
+      color: orange;
+    }
+    .red {
+      color: red;
+      font-weight: bold;
+    }
+    .legend {
+      margin-top: 30px;
+      padding: 10px;
+      background: #f5f5f5;
+      border-left: 5px solid orange;
+    }
+    .legend ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>Topaz Client Savings Calculator</h1>
+
+  <label for="tests">1. Number of Tests per Month</label>
+  <input type="number" id="tests" min="0" />
+
+  <label for="currentCost">2. Current Cost per Test ($)</label>
+  <input type="number" id="currentCost" min="0" step="0.01" />
+
+  <label for="topazCost">3. Topaz Cost per Test ($)</label>
+  <input type="number" id="topazCost" min="0" step="0.01" />
+
+  <label for="positiveRate">4. % of Positive Tests Sent to Lab</label>
+  <input type="number" id="positiveRate" min="0" max="100" step="0.1" placeholder="e.g. 25" />
+
+  <label for="labCost">5. Lab Confirmation Cost per Test ($)</label>
+  <input type="number" id="labCost" min="0" step="0.01" value="200" />
+
+  <label for="clia">6. Do you want CLIA Waived Product?</label>
+  <select id="clia">
+    <option value="clia">CLIA Waived</option>
+    <option value="forensic">Forensic Use Only</option>
+  </select>
+
+  <label for="usesDip">7. Is Client Currently Using Dip Panels?</label>
+  <select id="usesDip">
+    <option value="yes">Yes</option>
+    <option value="no">No</option>
+  </select>
+
+  <button onclick="calculateSavings()">Calculate Savings</button>
+
+  <div class="results" id="results"></div>
+
+  <div class="legend">
+    <h3>Legend:</h3>
+    <ul>
+      <li><strong>Green</strong> = CLIA Revenue (if applicable)</li>
+      <li><strong>Orange</strong> = Net Savings</li>
+      <li><strong>Red</strong> = Total ROI</li>
+      <li>Labour savings calculated using $24.36/hr wage</li>
+      <li>5 mins saved per test switching from panels to cups</li>
+      <li>CLIA Waived reimbursement avg (2019): $12.60/test</li>
+      <li>Lab Confirmation savings based on $200/test default</li>
+    </ul>
+  </div>
+
+  <div class="disclaimer">
+    * Savings are based on industry averages and may vary by client. Calculations are for estimation purposes only.
+  </div>
+
+  <script>
+    function calculateSavings() {
+      const tests = parseFloat(document.getElementById('tests').value);
+      const currentCost = parseFloat(document.getElementById('currentCost').value);
+      const topazCost = parseFloat(document.getElementById('topazCost').value);
+      const positiveRate = parseFloat(document.getElementById('positiveRate').value) / 100;
+      const labCost = parseFloat(document.getElementById('labCost').value);
+      const clia = document.getElementById('clia').value;
+      const usesDip = document.getElementById('usesDip').value;
+
+      if (
+        isNaN(tests) || tests < 0 ||
+        isNaN(currentCost) || currentCost < 0 ||
+        isNaN(topazCost) || topazCost < 0 ||
+        isNaN(positiveRate) || positiveRate < 0 || positiveRate > 1 ||
+        isNaN(labCost) || labCost < 0
+      ) {
+        document.getElementById('results').innerHTML = '<p style="color:red;">Please fill out all fields correctly.</p>';
+        return;
+      }
+
+      const productSavings = tests * (currentCost - topazCost);
+      const labSavings = tests * positiveRate * labCost;
+      const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
+      const labourSavings = usesDip === 'yes' ? (tests * (5 / 60)) * 24.36 : 0;
+
+      const netSavings = productSavings + labSavings + cliaRevenue + labourSavings;
+      const totalROI = netSavings;
+
+      document.getElementById('results').innerHTML = `
+        <p><strong>Monthly Product Cost Savings:</strong> $${productSavings.toFixed(2)}</p>
+        <p><strong>Lab Confirmation Cost Savings:</strong> $${labSavings.toFixed(2)}</p>
+        <p><strong>Labour Cost Savings:</strong> $${labourSavings.toFixed(2)}</p>
+        <p><strong class="green">CLIA Reimbursement Revenue:</strong> $${cliaRevenue.toFixed(2)}</p>
+        <p><strong class="orange">NET Savings:</strong> $${netSavings.toFixed(2)}</p>
+        <p><strong class="red">TOTAL ROI:</strong> $${totalROI.toFixed(2)}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
