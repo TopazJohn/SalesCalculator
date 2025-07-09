@@ -113,7 +113,7 @@
       <li><strong>Orange</strong> = Net Savings</li>
       <li><strong>Red</strong> = Total ROI</li>
       <li>Labour savings calculated using $24.36/hr wage</li>
-      <li>5 mins saved per test switching from panels to cups</li>
+      <li>4 mins saved per test switching from panels to cups</li>
       <li>CLIA Waived reimbursement avg (2019): $12.60/test</li>
       <li>Lab Confirmation savings based on $200/test</li>
     </ul>
@@ -147,7 +147,7 @@
       const productSavings = tests * (currentCost - topazCost);
       const labSavings = tests * positiveRate * labCost;
       const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
-      const labourSavings = usesDip === 'yes' ? (tests * (5 / 60)) * 24.36 : 0;
+      const labourSavings = usesDip === 'yes' ? (tests * (4 / 60)) * 24.36 : 0;
 
       const netSavings = (productSavings + labSavings + labourSavings) * 12;
       const totalROI = (netSavings + (cliaRevenue * 12));
