@@ -82,7 +82,7 @@
 <body>
   <div class="header">
     <h1>Topaz Client Savings Calculator</h1>
-<img src="topaz-logo.png" alt="Topaz Logo" style="height: 60px;" />
+    <img src="https://via.placeholder.com/150x60?text=Topaz+Logo" alt="Topaz Logo" />
   </div>
 
   <label>Client Name</label>
@@ -115,7 +115,7 @@
     <option value="forensic">Forensic Use Only</option>
   </select>
 
-  <label>Is the Clients currently using dip panels?</label>
+  <label>Is the Client currently using dip panels?</label>
   <select id="usesDip">
     <option value="yes">Yes</option>
     <option value="no">No</option>
@@ -123,13 +123,13 @@
 
   <button onclick="calculateSavings()">Calculate Savings</button>
 
-<div class="results" id="results-container">
-  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-    <img src="topaz-logo.png" alt="Topaz Logo" style="height: 60px;" />
-    <h2 style="color: #fc8b01; margin: 0;">Topaz Client Savings Report</h2>
+  <div class="results" id="results-container">
+    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+      <img src="https://via.placeholder.com/150x60?text=Topaz+Logo" alt="Topaz Logo" />
+      <h2 style="color: #fc8b01; margin: 0;">Topaz Client Savings Report</h2>
+    </div>
+    <div id="results"></div>
   </div>
-  <div id="results"></div>
-</div>
 
   <div class="legend">
     <h3>Legend:</h3>
@@ -151,64 +151,60 @@
   </div>
 
   <script>
-   <script>
-  function calculateSavings() {
-    const tests = parseFloat(document.getElementById('tests').value);
-    const locations = parseFloat(document.getElementById('locations').value);
-    const currentCost = parseFloat(document.getElementById('currentCost').value);
-    const topazCost = parseFloat(document.getElementById('topazCost').value);
-    const positiveRate = parseFloat(document.getElementById('positiveRate').value) / 100;
-    const labCost = parseFloat(document.getElementById('labCost').value);
-    const clia = document.getElementById('clia').value;
-    const usesDip = document.getElementById('usesDip').value;
+    function calculateSavings() {
+      const tests = parseFloat(document.getElementById('tests').value);
+      const locations = parseFloat(document.getElementById('locations').value);
+      const currentCost = parseFloat(document.getElementById('currentCost').value);
+      const topazCost = parseFloat(document.getElementById('topazCost').value);
+      const positiveRate = parseFloat(document.getElementById('positiveRate').value) / 100;
+      const labCost = parseFloat(document.getElementById('labCost').value);
+      const clia = document.getElementById('clia').value;
+      const usesDip = document.getElementById('usesDip').value;
 
-    const productSavings = tests * (currentCost - topazCost);
-    const labSavings = tests * positiveRate * labCost;
-    const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
-    const labourSavings = usesDip === 'yes' ? (tests * (4 / 60)) * 24.36 : 0;
+      const productSavings = tests * (currentCost - topazCost);
+      const labSavings = tests * positiveRate * labCost;
+      const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
+      const labourSavings = usesDip === 'yes' ? (tests * (4 / 60)) * 24.36 : 0;
 
-    const netSavings = ((productSavings + labSavings + labourSavings) * locations) * 12;
-    const totalPerLocation = productSavings + labSavings + cliaRevenue + labourSavings;
-    const totalROI = (totalPerLocation * locations) * 12;
-    const originalCost = tests * currentCost * locations;
-    const savingsPercent = (netSavings / originalCost) * 100;
+      const netSavings = ((productSavings + labSavings + labourSavings) * locations) * 12;
+      const totalPerLocation = productSavings + labSavings + cliaRevenue + labourSavings;
+      const totalROI = (totalPerLocation * locations) * 12;
+      const originalCost = tests * currentCost * locations;
+      const savingsPercent = (netSavings / originalCost) * 100;
 
-    document.getElementById('results').innerHTML = `
-      <h3>Results for ${document.getElementById('clientName').value} at ${document.getElementById('companyName').value}</h3>
-      <p><strong>Monthly Product Cost Savings (per location):</strong> $${productSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-      <p><strong>Lab Confirmation Cost Savings (per location):</strong> $${labSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-      <p><strong>Labour Hours Saved (per location):</strong> ${(labourSavings / 24.36).toFixed(2)}</p>
-      <p><strong>Labour Cost Savings (per location):</strong> $${labourSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-      <p><strong class="green">Monthly CLIA Reimbursement Revenue (per location):</strong> $${cliaRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-      <p><strong>Monthly NET Savings:</strong> $${(netSavings / 12).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-      <p><strong class="orange">Yearly NET Savings:</strong> $${netSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-      <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${totalROI.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-      <p><strong>Savings % vs Current Spend:</strong> ${savingsPercent.toFixed(2)}%</p>
-    `;
-  }
+      document.getElementById('results').innerHTML = `
+        <h3>Results for ${document.getElementById('clientName').value} at ${document.getElementById('companyName').value}</h3>
+        <p><strong>Monthly Product Cost Savings (per location):</strong> $${productSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p><strong>Lab Confirmation Cost Savings (per location):</strong> $${labSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p><strong>Labour Hours Saved (per location):</strong> ${(labourSavings / 24.36).toFixed(2)}</p>
+        <p><strong>Labour Cost Savings (per location):</strong> $${labourSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p><strong class="green">Monthly CLIA Reimbursement Revenue (per location):</strong> $${cliaRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p><strong>Monthly NET Savings:</strong> $${(netSavings / 12).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p><strong class="orange">Yearly NET Savings:</strong> $${netSavings.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${totalROI.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+        <p><strong>Savings % vs Current Spend:</strong> ${savingsPercent.toFixed(2)}%</p>
+      `;
+    }
 
-  function saveAsPDF() {
-    const element = document.getElementById('results-container');
+    function saveAsPDF() {
+      const element = document.getElementById('results-container');
+      document.querySelector('.pdf-buttons').style.display = 'none';
 
-    // Hide buttons before saving
-    document.querySelector('.pdf-buttons').style.display = 'none';
+      const opt = {
+        margin: 0.5,
+        filename: 'Topaz-Savings-Report.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
 
-    const opt = {
-      margin:       0.5,
-      filename:     'Topaz-Savings-Report.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
+      html2pdf().set(opt).from(element).save().then(() => {
+        document.querySelector('.pdf-buttons').style.display = 'flex';
+      });
+    }
+  </script>
 
-    html2pdf().set(opt).from(element).save().then(() => {
-      // Show buttons again after PDF is saved
-      document.querySelector('.pdf-buttons').style.display = 'flex';
-    });
-  }
-</script>
-
-<!-- Load the PDF library last -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <!-- Load the PDF library last -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>
