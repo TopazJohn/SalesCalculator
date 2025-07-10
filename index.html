@@ -103,8 +103,8 @@
   <label>Topaz Cost per Test ($)</label>
   <input type="number" id="topazCost" />
 
-  <label>% of Positive Tests Sent to Lab</label>
-  <input type="number" id="positiveRate" placeholder="e.g. 25" />
+  <label>% of Unexpected Results Sent to Lab</label>
+  <input type="number" id="positiveRate" placeholder="National Average = >3%" />
 
   <label>Lab Confirmation Cost per Test ($)</label>
   <input type="number" id="labCost" value="200" />
@@ -115,7 +115,7 @@
     <option value="forensic">Forensic Use Only</option>
   </select>
 
-  <label>Currently Using Dip Panels?</label>
+  <label>Is the Clients currently using dip panels?</label>
   <select id="usesDip">
     <option value="yes">Yes</option>
     <option value="no">No</option>
@@ -159,9 +159,10 @@
       const labSavings = tests * positiveRate * labCost;
       const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
       const labourSavings = usesDip === 'yes' ? (tests * (5 / 60)) * 24.36 : 0;
-
+      
+      const netSavings = ((productSavings + labSavings + labourSavings) * locations) * 12;
       const totalPerLocation = productSavings + labSavings + cliaRevenue + labourSavings;
-      const totalROI = totalPerLocation * locations;
+      const totalROI = (totalPerLocation * locations) * 12;
       const originalCost = tests * currentCost * locations;
       const savingsPercent = (totalROI / originalCost) * 100;
 
@@ -170,9 +171,9 @@
         <p><strong>Monthly Product Cost Savings (per location):</strong> $${productSavings.toFixed(2)}</p>
         <p><strong>Lab Confirmation Cost Savings (per location):</strong> $${labSavings.toFixed(2)}</p>
         <p><strong>Labour Cost Savings (per location):</strong> $${labourSavings.toFixed(2)}</p>
-        <p><strong class="green">CLIA Reimbursement Revenue (per location):</strong> $${cliaRevenue.toFixed(2)}</p>
-        <p><strong class="orange">NET Savings (Total x ${locations} locations):</strong> $${totalROI.toFixed(2)}</p>
-        <p><strong class="red">TOTAL ROI:</strong> $${totalROI.toFixed(2)}</p>
+        <p><strong class="green">Monthly CLIA Reimbursement Revenue (per location):</strong> $${cliaRevenue.toFixed(2)}</p>
+        <p><strong class="orange">Yearly NET Savings:</strong> $${netSavings.toFixed(2)}</p>
+        <p><strong class="red"> Yearly TOTAL ROI:</strong> $${totalROI.toFixed(2)}</p>
         <p><strong>Savings % vs Current Spend:</strong> ${savingsPercent.toFixed(2)}%</p>
       `;
     }
