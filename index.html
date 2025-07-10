@@ -129,7 +129,7 @@
     <h3>Legend:</h3>
     <ul>
       <li>Labour cost savings based on avg lab tech wage: $24.36/hr</li>
-      <li>Time saved based on 5 min to complete standard dip panel test</li>
+      <li>Time saved based on 4 min to complete standard dip panel test</li>
       <li>CLIA Waived national avg reimbursement (2019): $12.60/test</li>
       <li>Lab confirmation savings based on avg lab cost of $200</li>
     </ul>
@@ -158,7 +158,7 @@
       const productSavings = tests * (currentCost - topazCost);
       const labSavings = tests * positiveRate * labCost;
       const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
-      const labourSavings = usesDip === 'yes' ? (tests * (5 / 60)) * 24.36 : 0;
+      const labourSavings = usesDip === 'yes' ? (tests * (4 / 60)) * 24.36 : 0;
       
       const netSavings = ((productSavings + labSavings + labourSavings) * locations) * 12;
       const totalPerLocation = productSavings + labSavings + cliaRevenue + labourSavings;
@@ -170,6 +170,7 @@
         <h3>Results for ${document.getElementById('clientName').value} at ${document.getElementById('companyName').value}</h3>
         <p><strong>Monthly Product Cost Savings (per location):</strong> $${productSavings.toFixed(2)}</p>
         <p><strong>Lab Confirmation Cost Savings (per location):</strong> $${labSavings.toFixed(2)}</p>
+        <p><strong>Labour Hours Saved (per location):</strong> $${(labourSavings/24.36).toFixed(2)}</p>
         <p><strong>Labour Cost Savings (per location):</strong> $${labourSavings.toFixed(2)}</p>
         <p><strong class="green">Monthly CLIA Reimbursement Revenue (per location):</strong> $${cliaRevenue.toFixed(2)}</p>
         <p><strong>Monthly NET Savings:</strong> $${(netSavings/12).toFixed(2)}</p>
