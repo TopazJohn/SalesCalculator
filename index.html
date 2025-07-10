@@ -164,7 +164,7 @@
       const totalPerLocation = productSavings + labSavings + cliaRevenue + labourSavings;
       const totalROI = (totalPerLocation * locations) * 12;
       const originalCost = tests * currentCost * locations;
-      const savingsPercent = (netsavings / originalCost) * 100;
+      const savingsPercent = (netSavings / originalCost) * 100;
 
       document.getElementById('results').innerHTML = `
         <h3>Results for ${document.getElementById('clientName').value} at ${document.getElementById('companyName').value}</h3>
