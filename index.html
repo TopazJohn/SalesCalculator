@@ -77,6 +77,11 @@
       gap: 1rem;
       margin-top: 2rem;
     }
+    @media print {
+  .no-print {
+    display: none !important;
+  }
+}
   </style>
 </head>
 <body>
@@ -121,7 +126,7 @@
     <option value="no">No</option>
   </select>
 
-  <button onclick="calculateSavings()">Calculate Savings</button>
+<button class="no-print" onclick="calculateSavings()">Calculate Savings</button>
 
   <div class="results" id="results-container">
     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
