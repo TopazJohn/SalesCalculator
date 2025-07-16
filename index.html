@@ -9,80 +9,47 @@
       --topaz-orange: #fc8b01;
       --black: #000000;
       --white: #ffffff;
+      --light-grey: #f5f5f5;
     }
-    * {
-      box-sizing: border-box;
-    }
-    html, body {
-      margin: 0;
-      padding: 0;
+
+    body {
       font-family: Arial, sans-serif;
       background-color: var(--white);
       color: var(--black);
-    }
-    .splash-screen {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: var(--white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      animation: fadeOut 2s 2s forwards;
-    }
-    .splash-screen img {
-      height: 100px;
-      margin-bottom: 1rem;
-    }
-    .splash-screen p {
-      font-size: 1.2rem;
-      color: var(--topaz-orange);
-    }
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-    .container {
-      display: none;
-      max-width: 900px;
-      margin: 3rem auto;
+      margin: 0;
       padding: 2rem;
-      background: #f9f9f9;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      animation: fadeIn 1s ease-in-out forwards;
+      max-width: 900px;
+      margin: auto;
+      opacity: 0;
+      transition: opacity 0.8s ease;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    h1 {
+      color: var(--topaz-orange);
+      font-size: 2rem;
     }
+
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
     }
-    .header img {
-      height: 60px;
-    }
-    h1 {
-      color: var(--topaz-orange);
-      font-size: 2rem;
-      margin: 0;
-    }
+
     label {
       margin-top: 1rem;
       display: block;
       font-weight: bold;
     }
+
     input, select {
       width: 100%;
-      padding: 0.75rem;
+      padding: 0.5rem;
       margin-top: 0.25rem;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 5px;
       font-size: 1rem;
     }
+
     button {
       margin-top: 1.5rem;
       background-color: var(--topaz-orange);
@@ -91,103 +58,130 @@
       padding: 1rem;
       width: 100%;
       font-size: 1.1rem;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
     }
+
     button:hover {
       background-color: #d47601;
     }
+
     .results {
       margin-top: 2rem;
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding-top: 1rem;
+      border-top: 2px solid var(--black);
     }
+
     .green { color: green; }
     .orange { color: orange; }
     .red { color: red; font-weight: bold; }
+
     .legend, .disclaimer {
       margin-top: 2rem;
       padding: 1rem;
-      background-color: #fff8f0;
+      background-color: var(--light-grey);
       border-left: 5px solid var(--topaz-orange);
-      border-radius: 8px;
     }
+
     .pdf-buttons {
       display: flex;
       gap: 1rem;
       margin-top: 2rem;
     }
-    @media print {
-      .pdf-buttons, .calculate-button { display: none !important; }
+
+    /* Loader */
+    #loader {
+      background-color: var(--light-grey);
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #loader svg {
+      width: 200px;
+      height: auto;
     }
   </style>
 </head>
 <body>
-<div class="splash-screen">
-  <img src="https://i.imgur.com/T5pyoab.png" alt="Topaz Logo">
-  <p>Loading Savings Calculator...</p>
+<div id="loader">
+  <!-- Inline SVG Logo -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 134.8 76.3">
+    <!-- Paste your SVG code contents here from topaz.logo.svg -->
+    <rect width="134.8" height="76.3" fill="#fc8b01"/>
+    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="18" fill="white">TOPAZ</text>
+  </svg>
 </div>
-<div class="container" id="main-content">
-  <div class="header">
-    <h1>Client Savings Calculator</h1>
-    <img src="https://i.imgur.com/T5pyoab.png" alt="Topaz Logo" />
-  </div>
-  <label>Client Name</label>
-  <input type="text" id="clientName" placeholder="Enter client name" />
 
-  <label>Company Name</label>
-  <input type="text" id="companyName" placeholder="Enter company name" />
-
-  <label>Number of Locations</label>
-  <input type="number" id="locations" min="1" value="1" />
-
-  <label>Number of Tests per Month (per location)</label>
-  <input type="number" id="tests" />
-
-  <label>Current Cost per Test ($)</label>
-  <input type="number" id="currentCost" />
-
-  <label>Topaz Cost per Test ($)</label>
-  <input type="number" id="topazCost" />
-
-  <label>% of Unexpected Results Sent to Lab</label>
-  <input type="number" id="positiveRate" placeholder="National Average = >3%" />
-
-  <label>Lab Confirmation Cost per Test ($)</label>
-  <input type="number" id="labCost" value="200" />
-
-  <label>CLIA Product Type</label>
-  <select id="clia">
-    <option value="clia">CLIA Waived</option>
-    <option value="forensic">Forensic Use Only</option>
-  </select>
-
-  <label>Is the Client currently using dip panels?</label>
-  <select id="usesDip">
-    <option value="yes">Yes</option>
-    <option value="no">No</option>
-  </select>
-
-  <button onclick="calculateSavings()" class="calculate-button">Calculate Savings</button>
-
-  <div id="results-container"></div>
-
-  <div class="pdf-buttons">
-    <button onclick="window.print()">Print</button>
-    <button onclick="saveAsPDF()">Save as PDF</button>
+<div class="header" style="margin-bottom: 2rem;">
+  <h1>Topaz Client Savings Calculator</h1>
+  <div style="width: 100px;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 134.8 76.3">
+      <rect width="134.8" height="76.3" fill="#fc8b01"/>
+      <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="18" fill="white">TOPAZ</text>
+    </svg>
   </div>
 </div>
+
+<label>Client Name</label>
+<input type="text" id="clientName" placeholder="Enter client name" />
+
+<label>Company Name</label>
+<input type="text" id="companyName" placeholder="Enter company name" />
+
+<label>Number of Locations</label>
+<input type="number" id="locations" min="1" value="1" />
+
+<label>Number of Tests per Month (per location)</label>
+<input type="number" id="tests" />
+
+<label>Current Cost per Test ($)</label>
+<input type="number" id="currentCost" />
+
+<label>Topaz Cost per Test ($)</label>
+<input type="number" id="topazCost" />
+
+<label>% of Unexpected Results Sent to Lab</label>
+<input type="number" id="positiveRate" placeholder="National Average = >3%" />
+
+<label>Lab Confirmation Cost per Test ($)</label>
+<input type="number" id="labCost" value="200" />
+
+<label>CLIA Product Type</label>
+<select id="clia">
+  <option value="clia">CLIA Waived</option>
+  <option value="forensic">Forensic Use Only</option>
+</select>
+
+<label>Is the Client currently using dip panels?</label>
+<select id="usesDip">
+  <option value="yes">Yes</option>
+  <option value="no">No</option>
+</select>
+
+<button onclick="calculateSavings()">Calculate Savings</button>
+
+<div id="results-container"></div>
+
+<div class="pdf-buttons">
+  <button onclick="window.print()">Print</button>
+  <button onclick="saveAsPDF()">Save as PDF</button>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-window.onload = function() {
+// Fade loader
+window.addEventListener('load', () => {
   setTimeout(() => {
-    document.querySelector('.splash-screen').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
-  }, 2500);
-}
+    document.getElementById('loader').style.display = 'none';
+    document.body.style.opacity = 1;
+  }, 1000);
+});
+
 function calculateSavings() {
   const tests = parseFloat(document.getElementById('tests').value);
   const locations = parseFloat(document.getElementById('locations').value);
@@ -199,42 +193,52 @@ function calculateSavings() {
   const usesDip = document.getElementById('usesDip').value;
   const clientName = document.getElementById('clientName').value;
   const companyName = document.getElementById('companyName').value;
+
   const productSavings = tests * (currentCost - topazCost);
   const labSavings = tests * positiveRate * labCost;
   const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
   const labourSavings = usesDip === 'yes' ? (tests * (4 / 60)) * 24.36 : 0;
+
   const netSavings = ((productSavings + labSavings + labourSavings) * locations) * 12;
   const totalPerLocation = productSavings + labSavings + cliaRevenue + labourSavings;
   const totalROI = (totalPerLocation * locations) * 12;
   const originalCost = tests * currentCost * locations * 12;
   const savingsPercent = (netSavings / originalCost) * 100;
-  document.getElementById('results-container').innerHTML = `
+
+  const resultHTML = `
     <div class="results">
       <h3>Results for ${clientName} at ${companyName}</h3>
       <p><strong>Monthly Product Savings (per location):</strong> $${productSavings.toFixed(2)}</p>
       <p><strong>Lab Confirmation Savings (per location):</strong> $${labSavings.toFixed(2)}</p>
-      <p><strong>Labour Hours Saved (per location):</strong> ${(labourSavings / 24.36).toFixed(2)}</p>
       <p><strong>Labour Cost Savings (per location):</strong> $${labourSavings.toFixed(2)}</p>
-      <p><strong class="green">Monthly CLIA Reimbursement (per location):</strong> $${cliaRevenue.toFixed(2)}</p>
-      <p><strong>Monthly NET Savings:</strong> $${(netSavings / 12).toFixed(2)}</p>
+      <p><strong class="green">CLIA Monthly Reimbursement (per location):</strong> $${cliaRevenue.toFixed(2)}</p>
       <p><strong class="orange">Yearly NET Savings:</strong> $${netSavings.toFixed(2)}</p>
       <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${totalROI.toFixed(2)}</p>
       <p><strong>Savings % vs Current Spend:</strong> ${savingsPercent.toFixed(2)}%</p>
       <div class="legend">
         <h3>Legend:</h3>
         <ul>
-          <li>Labour cost savings based on avg lab tech wage: $24.36/hr</li>
-          <li>Time saved based on 4 min to complete standard dip panel test</li>
-          <li>CLIA Waived national avg reimbursement (2019): $12.60/test</li>
-          <li>Lab confirmation savings based on avg lab cost of $200</li>
+          <li>Labour wage: $24.36/hr, Dip panel test time: 4 min</li>
+          <li>CLIA avg reimbursement: $12.60/test</li>
+          <li>Lab confirmation avg cost: $200/test</li>
         </ul>
       </div>
-      <div class="disclaimer">* Results and savings are based on averages and are not guaranteed.</div>
+      <div class="disclaimer">* Savings are estimates based on national averages and not guaranteed.</div>
     </div>`;
+
+  document.getElementById('results-container').innerHTML = resultHTML;
 }
+
 function saveAsPDF() {
-  const element = document.querySelector('.results');
-  html2pdf().from(element).save();
+  const element = document.getElementById('results-container');
+  const opt = {
+    margin: 0.5,
+    filename: 'Topaz-Savings-Report.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
 }
 </script>
 </body>
