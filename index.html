@@ -245,8 +245,23 @@ function calculateSavings() {
     </div>`;
 }
 function saveAsPDF() {
-  const element = document.querySelector('.report-title').parentNode;
-  html2pdf().from(element).save();
+  const reportTitle = document.getElementById('report-title');
+  const results = document.querySelector('.results');
+  const printable = document.createElement('div');
+  printable.style.padding = '20px';
+  printable.style.backgroundColor = '#ffffff';
+  printable.style.fontFamily = 'Arial, sans-serif';
+  printable.appendChild(reportTitle.cloneNode(true));
+  printable.appendChild(results.cloneNode(true));
+  html2pdf()
+    .set({
+      margin: 0,
+      filename: 'Topaz-Savings-Report.pdf',
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
+    })
+    .from(printable)
+    .save();
 }
 </script>
 </body>
