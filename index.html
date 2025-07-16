@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Topaz Savings Calculator</title>
   <style>
+    :root {
       --topaz-orange: #fc8b01;
       --black: #000000;
       --white: #ffffff;
@@ -174,20 +175,20 @@ function calculateSavings() {
       <p><strong class="orange">Yearly NET Savings:</strong> $${netSavings.toFixed(2)}</p>
       <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${totalROI.toFixed(2)}</p>
       <p><strong>Savings % vs Current Spend:</strong> ${savingsPercent.toFixed(2)}%</p>
-     <div class="legend">
-      <h3>Legend:</h3>
-      <ul>
-        <li>Labour cost savings based on avg lab tech wage: $24.36/hr</li>
-        <li>Time saved based on 4 min to complete standard dip panel test</li>
-        <li>CLIA Waived national avg reimbursement (2019): $12.60/test</li>
-        <li>Lab confirmation savings based on avg lab cost of $200</li>
-      </ul>
-    </div>
-    <div class="disclaimer">
-      * Results and savings are based on averages and are not guaranteed. Calculations are for estimation purposes only.
-    </div>
-  </div>
-`;
+      <div class="legend">
+        <h3>Legend:</h3>
+        <ul>
+          <li>Labour cost savings based on avg lab tech wage: $24.36/hr</li>
+          <li>Time saved based on 4 min to complete standard dip panel test</li>
+          <li>CLIA Waived national avg reimbursement (2019): $12.60/test</li>
+          <li>Lab confirmation savings based on avg lab cost of $200</li>
+        </ul>
+      </div>
+      <div class="disclaimer">
+        * Results and savings are based on averages and are not guaranteed. Calculations are for estimation purposes only.
+      </div>
+      </div>
+    `;
 
     document.getElementById('results-container').innerHTML = resultHTML;
     document.getElementById('pdf-clean').innerHTML = resultHTML;
