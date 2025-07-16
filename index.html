@@ -14,11 +14,23 @@
       box-sizing: border-box;
     }
     html, body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: var(--white);
-      color: var(--black);
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #e0e0e0; /* Light grey background */
+  color: var(--black);
+}
+
+.container {
+  display: none;
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: var(--white); /* White container */
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  animation: fadeIn 1s ease-in-out forwards;
+}
     }
     .splash-screen {
       position: fixed;
