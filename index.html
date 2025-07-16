@@ -1,114 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Topaz Savings Calculator</title>
-  <style>
-    :root {
-      --topaz-orange: #fc8b01;
-      --black: #000000;
-      --white: #ffffff;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: var(--white);
-      color: var(--black);
-      margin: 0;
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-    }
-    h1 {
-      color: var(--topaz-orange);
-      font-size: 2rem;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .header img {
-      height: 60px;
-    }
-    label {
-      margin-top: 1rem;
-      display: block;
-      font-weight: bold;
-    }
-    input, select {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.25rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-    button {
-      margin-top: 1.5rem;
-      background-color: var(--topaz-orange);
-      color: white;
-      border: none;
-      padding: 1rem;
-      width: 100%;
-      font-size: 1.1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #d47601;
-    }
-    .results {
-      margin-top: 2rem;
-      padding-top: 1rem;
-      border-top: 2px solid var(--black);
-    }
-    .green { color: green; }
-    .orange { color: orange; }
-    .red { color: red; font-weight: bold; }
-    .legend, .disclaimer {
-      margin-top: 2rem;
-      padding: 1rem;
-      background-color: #f5f5f5;
-      border-left: 5px solid var(--topaz-orange);
-    }
-    .pdf-buttons {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topaz Savings Calculator</title>
+<style>
+  :root {
+    --topaz-orange: #fc8b01;
+    --black: #000000;
+    --white: #ffffff;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    background-color: var(--white);
+    color: var(--black);
+    margin: 0;
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .header img {
+    height: 60px;
+  }
+  h1 {
+    color: var(--topaz-orange);
+    font-size: 2.5rem;
+    margin: 0;
+  }
+  label {
+    margin-top: 1rem;
+    display: block;
+    font-weight: bold;
+  }
+  input, select {
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  button {
+    margin-top: 1.5rem;
+    background-color: var(--topaz-orange);
+    color: white;
+    border: none;
+    padding: 1rem;
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #d47601;
+  }
+  .results {
+    margin-top: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .green { color: green; }
+  .orange { color: orange; }
+  .red { color: red; font-weight: bold; }
+  .legend, .disclaimer {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-left: 5px solid var(--topaz-orange);
+    border-radius: 8px;
+  }
+  .pdf-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+</style>
 </head>
 <body>
 
 <div class="header">
-  <h1>Topaz Client Savings Calculator</h1>
-  <img src="https://i.imgur.com/T5pyoab.png" alt="Topaz Logo" />
+  <h1>Topaz Savings Calculator</h1>
+  <img src="https://i.imgur.com/T5pyoab.png" alt="Topaz Logo">
 </div>
 
 <label>Client Name</label>
-<input type="text" id="clientName" placeholder="Enter client name" />
+<input type="text" id="clientName" placeholder="Enter client name">
 
 <label>Company Name</label>
-<input type="text" id="companyName" placeholder="Enter company name" />
+<input type="text" id="companyName" placeholder="Enter company name">
 
 <label>Number of Locations</label>
-<input type="number" id="locations" min="1" value="1" />
+<input type="number" id="locations" min="1" value="1">
 
 <label>Number of Tests per Month (per location)</label>
-<input type="number" id="tests" />
+<input type="number" id="tests">
 
 <label>Current Cost per Test ($)</label>
-<input type="number" id="currentCost" />
+<input type="number" id="currentCost">
 
 <label>Topaz Cost per Test ($)</label>
-<input type="number" id="topazCost" />
+<input type="number" id="topazCost">
 
 <label>% of Unexpected Results Sent to Lab</label>
-<input type="number" id="positiveRate" placeholder="National Average = >3%" />
+<input type="number" id="positiveRate" placeholder="National Average = >3%">
 
 <label>Lab Confirmation Cost per Test ($)</label>
-<input type="number" id="labCost" value="200" />
+<input type="number" id="labCost" value="200">
 
 <label>CLIA Product Type</label>
 <select id="clia">
@@ -125,8 +133,6 @@
 <button onclick="calculateSavings()">Calculate Savings</button>
 
 <div id="results-container"></div>
-
-<div id="pdf-clean" style="display: none;"></div>
 
 <div class="pdf-buttons">
   <button onclick="window.print()">Print</button>
@@ -148,6 +154,11 @@ function calculateSavings() {
     const clientName = document.getElementById('clientName').value;
     const companyName = document.getElementById('companyName').value;
 
+    if (isNaN(tests) || isNaN(currentCost) || isNaN(topazCost) || isNaN(positiveRate) || isNaN(labCost)) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     const productSavings = tests * (currentCost - topazCost);
     const labSavings = tests * positiveRate * labCost;
     const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
@@ -159,10 +170,10 @@ function calculateSavings() {
     const originalCost = tests * currentCost * locations * 12;
     const savingsPercent = (netSavings / originalCost) * 100;
 
-    const resultHTML = `
-      <div class="results">
-      <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-        <img src="https://i.imgur.com/T5pyoab.png" style="height: 40px;" />
+    document.getElementById('results-container').innerHTML = `
+    <div class="results" id="pdf-content">
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <img src="https://i.imgur.com/T5pyoab.png" style="height: 40px;">
         <h2 style="color: var(--topaz-orange); margin: 0;">Topaz Client Savings Report</h2>
       </div>
       <h3>Results for ${clientName} at ${companyName}</h3>
@@ -171,7 +182,7 @@ function calculateSavings() {
       <p><strong>Labour Hours Saved (per location):</strong> ${(labourSavings / 24.36).toFixed(2)}</p>
       <p><strong>Labour Cost Savings (per location):</strong> $${labourSavings.toFixed(2)}</p>
       <p><strong class="green">Monthly CLIA Reimbursement Revenue (per location):</strong> $${cliaRevenue.toFixed(2)}</p>
-      <p><strong>Monthly NET Savings:</strong> $${(netSavings / 12).toFixed(2)}</p>
+      <p><strong>Monthly NET Savings:</strong> $${(netSavings/12).toFixed(2)}</p>
       <p><strong class="orange">Yearly NET Savings:</strong> $${netSavings.toFixed(2)}</p>
       <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${totalROI.toFixed(2)}</p>
       <p><strong>Savings % vs Current Spend:</strong> ${savingsPercent.toFixed(2)}%</p>
@@ -187,15 +198,12 @@ function calculateSavings() {
       <div class="disclaimer">
         * Results and savings are based on averages and are not guaranteed. Calculations are for estimation purposes only.
       </div>
-      </div>
+    </div>
     `;
-
-    document.getElementById('results-container').innerHTML = resultHTML;
-    document.getElementById('pdf-clean').innerHTML = resultHTML;
 }
 
 function saveAsPDF() {
-    const element = document.getElementById('pdf-clean');
+    const element = document.getElementById('pdf-content');
     const opt = {
       margin: 0.5,
       filename: 'Topaz-Savings-Report.pdf',
