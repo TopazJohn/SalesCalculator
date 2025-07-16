@@ -17,7 +17,7 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background-color: var(--white);
+      background-color: #e0e0e0;
       color: var(--black);
     }
     .splash-screen {
@@ -98,6 +98,18 @@
     button:hover {
       background-color: #d47601;
     }
+    .report-title {
+      display: none;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .report-title h2 {
+      color: var(--topaz-orange);
+    }
+    .report-title img {
+      height: 80px;
+      margin-top: 1rem;
+    }
     .results {
       margin-top: 2rem;
       background: white;
@@ -121,7 +133,9 @@
       margin-top: 2rem;
     }
     @media print {
-      .pdf-buttons, .calculate-button { display: none !important; }
+      body, html { background-color: var(--white); }
+      .container, .header, .calculate-button, .pdf-buttons { display: none !important; }
+      .report-title, .results, .legend, .disclaimer { display: block; }
     }
   </style>
 </head>
@@ -171,7 +185,12 @@
     <option value="no">No</option>
   </select>
 
-  <button onclick="calculateSavings()" class="calculate-button">Calculate Savings</button>
+  <button onclick="calculateSavings()" class="calculate-button">Generate Savings</button>
+
+  <div class="report-title" id="report-title">
+    <h2>Savings Report</h2>
+    <img src="https://i.imgur.com/T5pyoab.png" alt="Topaz Logo" />
+  </div>
 
   <div id="results-container"></div>
 
@@ -185,11 +204,12 @@
 window.onload = function() {
   setTimeout(() => {
     document.querySelector('.splash-screen').style.display = 'none';
-    document.body.style.backgroundColor = '#e0e0e0';
     document.getElementById('main-content').style.display = 'block';
   }, 2500);
 }
 function calculateSavings() {
+  document.getElementById('report-title').style.display = 'block';
+
   const tests = parseFloat(document.getElementById('tests').value);
   const locations = parseFloat(document.getElementById('locations').value);
   const currentCost = parseFloat(document.getElementById('currentCost').value);
@@ -200,6 +220,7 @@ function calculateSavings() {
   const usesDip = document.getElementById('usesDip').value;
   const clientName = document.getElementById('clientName').value;
   const companyName = document.getElementById('companyName').value;
+
   const productSavings = tests * (currentCost - topazCost);
   const labSavings = tests * positiveRate * labCost;
   const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
@@ -209,6 +230,7 @@ function calculateSavings() {
   const totalROI = (totalPerLocation * locations) * 12;
   const originalCost = tests * currentCost * locations * 12;
   const savingsPercent = (netSavings / originalCost) * 100;
+
   document.getElementById('results-container').innerHTML = `
     <div class="results">
       <h3>Results for ${clientName} at ${companyName}</h3>
@@ -234,7 +256,7 @@ function calculateSavings() {
     </div>`;
 }
 function saveAsPDF() {
-  const element = document.querySelector('.results');
+  const element = document.getElementById('report-title').parentNode;
   html2pdf().from(element).save();
 }
 </script>
