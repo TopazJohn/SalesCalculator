@@ -100,15 +100,19 @@
     }
     .report-title {
       display: none;
-      text-align: center;
       margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      text-align: center;
     }
     .report-title h2 {
       color: var(--topaz-orange);
+      margin: 0;
     }
     .report-title img {
-      height: 80px;
-      margin-top: 1rem;
+      height: 60px;
     }
     .results {
       margin-top: 2rem;
@@ -135,7 +139,7 @@
     @media print {
       body, html { background-color: var(--white); }
       .container, .header, .calculate-button, .pdf-buttons { display: none !important; }
-      .report-title, .results, .legend, .disclaimer { display: block; }
+      .report-title, .results, .legend, .disclaimer { display: flex; flex-direction: column; align-items: center; }
     }
   </style>
 </head>
@@ -208,7 +212,7 @@ window.onload = function() {
   }, 2500);
 }
 function calculateSavings() {
-  document.getElementById('report-title').style.display = 'block';
+  document.getElementById('report-title').style.display = 'flex';
 
   const tests = parseFloat(document.getElementById('tests').value);
   const locations = parseFloat(document.getElementById('locations').value);
