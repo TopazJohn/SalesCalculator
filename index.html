@@ -105,6 +105,15 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
+    .results-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .results-header img {
+      height: 60px;
+    }
     .green { color: green; }
     .orange { color: orange; }
     .red { color: red; font-weight: bold; }
@@ -119,6 +128,13 @@
       margin: 2rem auto;
       display: block;
       max-width: 300px;
+    }
+
+    /* Hide buttons on print */
+    @media print {
+      button {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -169,6 +185,7 @@ window.onload = function() {
     document.getElementById('main-content').style.display = 'block';
   }, 2500);
 }
+
 function calculateSavings() {
   const num = (n) => n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const tests = parseFloat(document.getElementById('tests').value);
@@ -190,8 +207,13 @@ function calculateSavings() {
   const totalROI = (totalPerLocation * locations) * 12;
   const originalCost = tests * currentCost * locations * 12;
   const savingsPercent = (netSavings / originalCost) * 100;
+  
   document.getElementById('results-container').innerHTML = `
     <div class="results">
+      <div class="results-header">
+        <img src="https://i.imgur.com/T5pyoab.png" alt="Topaz Logo" />
+        <h2>Client Savings Report</h2>
+      </div>
       <h3>Results for ${clientName} at ${companyName}</h3>
       <p><strong>Monthly Product Savings (per location):</strong> $${num(productSavings)}</p>
       <p><strong>Lab Confirmation Savings (per location):</strong> $${num(labSavings)}</p>
