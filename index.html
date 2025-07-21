@@ -133,12 +133,12 @@
     }
     .pdf-buttons {
       display: flex;
-      gap: 1rem;
+      justify-content: center;
       margin-top: 2rem;
     }
     @media print {
       body, html { background-color: var(--white); }
-      .container, .header, .calculate-button, .pdf-buttons, label, input, select { display: none !important; }
+      .container, .header, .calculate-button, label, input, select { display: none !important; }
       .report-title, .results, .legend, .disclaimer { display: block; }
       .report-title { display: flex; flex-direction: row; align-items: center; justify-content: center; }
     }
@@ -188,10 +188,8 @@
   <div id="results-container"></div>
   <div class="pdf-buttons">
     <button onclick="window.print()">Print</button>
-    <button onclick="saveAsPDF()">Save as PDF</button>
   </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 window.onload = function() {
   setTimeout(() => {
@@ -243,25 +241,6 @@ function calculateSavings() {
       </div>
       <div class="disclaimer">* Results and savings are based on averages and are not guaranteed.</div>
     </div>`;
-}
-function saveAsPDF() {
-  const reportTitle = document.getElementById('report-title');
-  const results = document.querySelector('.results');
-  const printable = document.createElement('div');
-  printable.style.padding = '20px';
-  printable.style.backgroundColor = '#ffffff';
-  printable.style.fontFamily = 'Arial, sans-serif';
-  printable.appendChild(reportTitle.cloneNode(true));
-  printable.appendChild(results.cloneNode(true));
-  html2pdf()
-    .set({
-      margin: 0,
-      filename: 'Topaz-Savings-Report.pdf',
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' }
-    })
-    .from(printable)
-    .save();
 }
 </script>
 </body>
