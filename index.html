@@ -98,22 +98,6 @@
     button:hover {
       background-color: #d47601;
     }
-    .report-title {
-      display: none;
-      margin-top: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      text-align: center;
-    }
-    .report-title h2 {
-      color: var(--topaz-orange);
-      margin: 0;
-    }
-    .report-title img {
-      height: 60px;
-    }
     .results {
       margin-top: 2rem;
       background: white;
@@ -132,15 +116,9 @@
       border-radius: 8px;
     }
     .print-button {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-    }
-    @media print {
-      body, html { background-color: var(--white); }
-      .container, .header, label, input, select, .calculate-button, .print-button { display: none !important; }
-      .report-title, .results, .legend, .disclaimer { display: block; }
-      .report-title { display: flex; flex-direction: row; align-items: center; justify-content: center; }
+      margin: 2rem auto;
+      display: block;
+      max-width: 300px;
     }
   </style>
 </head>
@@ -180,15 +158,9 @@
     <option value="yes">Yes</option>
     <option value="no">No</option>
   </select>
-  <button onclick="calculateSavings()" class="calculate-button">Generate Savings</button>
-  <div class="report-title" id="report-title">
-    <h2>Savings Report</h2>
-    <img src="https://i.imgur.com/T5pyoab.png" alt="Topaz Logo" />
-  </div>
+  <button onclick="calculateSavings()">Generate Savings</button>
   <div id="results-container"></div>
-  <div class="print-button">
-    <button onclick="window.print()">Print Savings Report</button>
-  </div>
+  <button onclick="window.print()" class="print-button">Print Page</button>
 </div>
 <script>
 window.onload = function() {
@@ -198,8 +170,7 @@ window.onload = function() {
   }, 2500);
 }
 function calculateSavings() {
-  document.getElementById('report-title').style.display = 'flex';
-  const format = num => num.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const num = (n) => n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const tests = parseFloat(document.getElementById('tests').value);
   const locations = parseFloat(document.getElementById('locations').value);
   const currentCost = parseFloat(document.getElementById('currentCost').value);
@@ -222,15 +193,15 @@ function calculateSavings() {
   document.getElementById('results-container').innerHTML = `
     <div class="results">
       <h3>Results for ${clientName} at ${companyName}</h3>
-      <p><strong>Monthly Product Savings (per location):</strong> $${format(productSavings)}</p>
-      <p><strong>Lab Confirmation Savings (per location):</strong> $${format(labSavings)}</p>
-      <p><strong>Labour Hours Saved (per location):</strong> ${format(labourSavings / 24.36)}</p>
-      <p><strong>Labour Cost Savings (per location):</strong> $${format(labourSavings)}</p>
-      <p><strong class="green">Monthly CLIA Reimbursement (per location):</strong> $${format(cliaRevenue)}</p>
-      <p><strong>Monthly NET Savings:</strong> $${format(netSavings / 12)}</p>
-      <p><strong class="orange">Yearly NET Savings:</strong> $${format(netSavings)}</p>
-      <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${format(totalROI)}</p>
-      <p><strong>Savings % vs Current Spend:</strong> ${format(savingsPercent)}%</p>
+      <p><strong>Monthly Product Savings (per location):</strong> $${num(productSavings)}</p>
+      <p><strong>Lab Confirmation Savings (per location):</strong> $${num(labSavings)}</p>
+      <p><strong>Labour Hours Saved (per location):</strong> ${num(labourSavings / 24.36)}</p>
+      <p><strong>Labour Cost Savings (per location):</strong> $${num(labourSavings)}</p>
+      <p><strong class="green">Monthly CLIA Reimbursement (per location):</strong> $${num(cliaRevenue)}</p>
+      <p><strong>Monthly NET Savings:</strong> $${num(netSavings / 12)}</p>
+      <p><strong class="orange">Yearly NET Savings:</strong> $${num(netSavings)}</p>
+      <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${num(totalROI)}</p>
+      <p><strong>Savings % vs Current Spend:</strong> ${num(savingsPercent)}%</p>
       <div class="legend">
         <h3>Legend:</h3>
         <ul>
