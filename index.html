@@ -131,14 +131,14 @@
       border-left: 5px solid var(--topaz-orange);
       border-radius: 8px;
     }
-    .pdf-buttons {
+    .print-button {
+      margin-top: 2rem;
       display: flex;
       justify-content: center;
-      margin-top: 2rem;
     }
     @media print {
       body, html { background-color: var(--white); }
-      .container, .header, .calculate-button, label, input, select { display: none !important; }
+      .container, .header, label, input, select, .calculate-button, .print-button { display: none !important; }
       .report-title, .results, .legend, .disclaimer { display: block; }
       .report-title { display: flex; flex-direction: row; align-items: center; justify-content: center; }
     }
@@ -186,8 +186,8 @@
     <img src="https://i.imgur.com/T5pyoab.png" alt="Topaz Logo" />
   </div>
   <div id="results-container"></div>
-  <div class="pdf-buttons">
-    <button onclick="window.print()">Print</button>
+  <div class="print-button">
+    <button onclick="window.print()">Print Savings Report</button>
   </div>
 </div>
 <script>
@@ -199,7 +199,7 @@ window.onload = function() {
 }
 function calculateSavings() {
   document.getElementById('report-title').style.display = 'flex';
-
+  const format = num => num.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
   const tests = parseFloat(document.getElementById('tests').value);
   const locations = parseFloat(document.getElementById('locations').value);
   const currentCost = parseFloat(document.getElementById('currentCost').value);
@@ -210,7 +210,6 @@ function calculateSavings() {
   const usesDip = document.getElementById('usesDip').value;
   const clientName = document.getElementById('clientName').value;
   const companyName = document.getElementById('companyName').value;
-
   const productSavings = tests * (currentCost - topazCost);
   const labSavings = tests * positiveRate * labCost;
   const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
@@ -220,20 +219,18 @@ function calculateSavings() {
   const totalROI = (totalPerLocation * locations) * 12;
   const originalCost = tests * currentCost * locations * 12;
   const savingsPercent = (netSavings / originalCost) * 100;
-  const labourHoursSaved = (labourSavings / 24.36);
-
   document.getElementById('results-container').innerHTML = `
     <div class="results">
       <h3>Results for ${clientName} at ${companyName}</h3>
-      <p><strong>Monthly Product Savings (per location):</strong> $${productSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-      <p><strong>Lab Confirmation Savings (per location):</strong> $${labSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-      <p><strong>Labour Hours Saved (per location):</strong> ${labourHoursSaved.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-      <p><strong>Labour Cost Savings (per location):</strong> $${labourSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-      <p><strong class="green">Monthly CLIA Reimbursement (per location):</strong> $${cliaRevenue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-      <p><strong>Monthly NET Savings:</strong> $${(netSavings / 12).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-      <p><strong class="orange">Yearly NET Savings:</strong> $${netSavings.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-      <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${totalROI.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
-      <p><strong>Savings % vs Current Spend:</strong> ${savingsPercent.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}%</p>
+      <p><strong>Monthly Product Savings (per location):</strong> $${format(productSavings)}</p>
+      <p><strong>Lab Confirmation Savings (per location):</strong> $${format(labSavings)}</p>
+      <p><strong>Labour Hours Saved (per location):</strong> ${format(labourSavings / 24.36)}</p>
+      <p><strong>Labour Cost Savings (per location):</strong> $${format(labourSavings)}</p>
+      <p><strong class="green">Monthly CLIA Reimbursement (per location):</strong> $${format(cliaRevenue)}</p>
+      <p><strong>Monthly NET Savings:</strong> $${format(netSavings / 12)}</p>
+      <p><strong class="orange">Yearly NET Savings:</strong> $${format(netSavings)}</p>
+      <p><strong class="red">Yearly TOTAL Financial Impact:</strong> $${format(totalROI)}</p>
+      <p><strong>Savings % vs Current Spend:</strong> ${format(savingsPercent)}%</p>
       <div class="legend">
         <h3>Legend:</h3>
         <ul>
