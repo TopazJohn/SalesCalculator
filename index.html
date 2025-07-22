@@ -200,8 +200,8 @@ function calculateSavings() {
   const companyName = document.getElementById('companyName').value;
   const productSavings = tests * (currentCost - topazCost);
   const labSavings = tests * positiveRate * labCost;
-  const cliaRevenue = clia === 'clia' ? tests * 12.60 : 0;
-  const labourSavings = usesDip === 'yes' ? (tests * (4 / 60)) * 24.36 : 0;
+  const cliaRevenue = clia === 'clia' ? tests * 18.19 : 0;
+  const labourSavings = usesDip === 'yes' ? (tests * (4 / 60)) * 40.66 : 0;
   const netSavings = ((productSavings + labSavings + labourSavings) * locations) * 12;
   const totalPerLocation = productSavings + labSavings + cliaRevenue + labourSavings;
   const totalROI = (totalPerLocation * locations) * 12;
@@ -217,7 +217,7 @@ function calculateSavings() {
       <h3>Results for ${clientName} at ${companyName}</h3>
       <p><strong>Monthly Product Savings (per location):</strong> $${num(productSavings)}</p>
       <p><strong>Lab Confirmation Savings (per location):</strong> $${num(labSavings)}</p>
-      <p><strong>Labour Hours Saved (per location):</strong> ${num(labourSavings / 24.36)}</p>
+      <p><strong>Labour Hours Saved (per location):</strong> ${num(labourSavings / 40.66)}</p>
       <p><strong>Labour Cost Savings (per location):</strong> $${num(labourSavings)}</p>
       <p><strong class="green">Monthly CLIA Reimbursement (per location):</strong> $${num(cliaRevenue)}</p>
       <p><strong>Monthly NET Savings:</strong> $${num(netSavings / 12)}</p>
@@ -227,9 +227,9 @@ function calculateSavings() {
       <div class="legend">
         <h3>Legend:</h3>
         <ul>
-          <li>Labour cost savings based on avg lab tech wage: $24.36/hr</li>
+          <li>Labour cost savings based on avg addiction treatment nurse's wage (2025): $40.66/hr</li>
           <li>Time saved based on 4 min to complete standard dip panel test</li>
-          <li>CLIA Waived national avg reimbursement (2019): $12.60/test</li>
+          <li>CLIA Waived national avg reimbursement (2025): $18.19/test</li>
           <li>Lab confirmation savings based on avg lab cost of $200</li>
         </ul>
       </div>
